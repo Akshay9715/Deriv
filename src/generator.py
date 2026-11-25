@@ -10,34 +10,74 @@ MIN_BM25_SCORE = 0.5
 MIN_OVERLAP_COUNT = 1
 
 
-def _detect_conflict(chunk_a: dict[str, Any], chunk_b: dict[str, Any], query_tokens: set[str]) -> bool:
+def _detect_conflict(
+    chunk_a: dict[str, Any],
+    chunk_b: dict[str, Any],
+    query_tokens: set[str],
+) -> bool:
     """
-    Detects direct contradiction between two retrieved chunks that both address
-    the query topic (e.g., opposite negation polarity or conflicting numbers).
-    """
-    tokens_a = set(tokenize(chunk_a["chunk_text"], remove_stopwords=True))
-    tokens_b = set(tokenize(chunk_b["chunk_text"], remove_stopwords=True))
+    Detect direct contradictions between two retrieved chunks.
 
-    shared_query_focus = (tokens_a & query_tokens) & (tokens_b & query_tokens)
+    A conflict is detected when:
+    1. Both chunks address the same query focus.
+    2. They have opposite negation polarity.
+
+    Different numbers alone are NOT considered a contradiction because
+    they may describe different entities, methods, conditions, or contexts.
+
+    For example:
+    - "Bank withdrawals take 1 to 3 business days."
+    - "E-wallet withdrawals take 4 hours."
+
+    These statements are not contradictory because they describe
+    different withdrawal methods.
+    """
+
+    # Tokenize both chunks, removing common stopwords.
+    tokens_a = set(
+        tokenize(chunk_a["chunk_text"], remove_stopwords=True)
+    )
+    tokens_b = set(
+        tokenize(chunk_b["chunk_text"], remove_stopwords=True)
+    )
+
+    # Both chunks must share at least two query-related terms.
+    shared_query_focus = (
+        tokens_a & query_tokens
+    ) & (
+        tokens_b & query_tokens
+    )
+
     if len(shared_query_focus) < 2:
         return False
 
-    negations = {"not", "no", "cannot", "never", "unexpired", "unavailable"}
-    raw_a = set(re.findall(r"[a-z0-9]+", chunk_a["chunk_text"].lower()))
-    raw_b = set(re.findall(r"[a-z0-9]+", chunk_b["chunk_text"].lower()))
+    # Identify negation terms in the original text.
+    negations = {
+        "not",
+        "no",
+        "cannot",
+        "never",
+        "unexpired",
+        "unavailable",
+    }
+
+    raw_a = set(
+        re.findall(r"[a-z0-9]+", chunk_a["chunk_text"].lower())
+    )
+    raw_b = set(
+        re.findall(r"[a-z0-9]+", chunk_b["chunk_text"].lower())
+    )
 
     has_neg_a = bool(raw_a & negations)
     has_neg_b = bool(raw_b & negations)
+
+    # Opposite negation polarity may indicate a contradiction.
     if has_neg_a != has_neg_b:
         return True
 
-    nums_a = set(re.findall(r"\b\d+\b", chunk_a["chunk_text"]))
-    nums_b = set(re.findall(r"\b\d+\b", chunk_b["chunk_text"]))
-    if nums_a and nums_b and nums_a != nums_b and len(tokens_a & tokens_b) >= 3:
-        return True
+    # Different values may refer to different entities or conditions.
 
     return False
-
 
 def generate_answer_for_query(retrieval_record: dict[str, Any]) -> dict[str, Any]:
     """

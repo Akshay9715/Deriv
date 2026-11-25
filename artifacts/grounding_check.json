@@ -7,9 +7,9 @@
   "results": [
     {
       "query_id": "Q1",
-      "answer_label": "conflicting_context",
+      "answer_label": "grounded_answer",
       "citations_exist_in_retrieval": true,
-      "overlap_score": 0.7273,
+      "overlap_score": 1.0,
       "is_grounded": true,
       "reason": "All citations exist in top_k and lexical support meets threshold."
     },

@@ -1,15 +1,13 @@
 [
   {
     "query_id": "Q1",
-    "answer_label": "conflicting_context",
-    "answer": "Retrieved sources contain conflicting statements: Bank withdrawals may take 1 to 3 business days after approval. [Cash withdrawal processing §chunk_7] versus E-wallet withdrawals are typically processed within 4 hours after approval. [Cash withdrawal processing §chunk_8]",
+    "answer_label": "grounded_answer",
+    "answer": "Bank withdrawals may take 1 to 3 business days after approval. [Cash withdrawal processing §chunk_7]",
     "citations": [
-      "[Cash withdrawal processing §chunk_7]",
-      "[Cash withdrawal processing §chunk_8]"
+      "[Cash withdrawal processing §chunk_7]"
     ],
     "used_chunk_ids": [
-      "chunk_7",
-      "chunk_8"
+      "chunk_7"
     ]
   },
   {

@@ -1,0 +1,49 @@
+{
+  "summary": {
+    "total_answers": 5,
+    "grounded_answers": 5,
+    "grounding_pass_rate": 1.0
+  },
+  "results": [
+    {
+      "query_id": "Q1",
+      "answer_label": "conflicting_context",
+      "citations_exist_in_retrieval": true,
+      "overlap_score": 0.7273,
+      "is_grounded": true,
+      "reason": "All citations exist in top_k and lexical support meets threshold."
+    },
+    {
+      "query_id": "Q2",
+      "answer_label": "grounded_answer",
+      "citations_exist_in_retrieval": true,
+      "overlap_score": 1.0,
+      "is_grounded": true,
+      "reason": "All citations exist in top_k and lexical support meets threshold."
+    },
+    {
+      "query_id": "Q3",
+      "answer_label": "grounded_answer",
+      "citations_exist_in_retrieval": true,
+      "overlap_score": 1.0,
+      "is_grounded": true,
+      "reason": "All citations exist in top_k and lexical support meets threshold."
+    },
+    {
+      "query_id": "Q4",
+      "answer_label": "grounded_answer",
+      "citations_exist_in_retrieval": true,
+      "overlap_score": 1.0,
+      "is_grounded": true,
+      "reason": "All citations exist in top_k and lexical support meets threshold."
+    },
+    {
+      "query_id": "Q5",
+      "answer_label": "grounded_answer",
+      "citations_exist_in_retrieval": true,
+      "overlap_score": 1.0,
+      "is_grounded": true,
+      "reason": "All citations exist in top_k and lexical support meets threshold."
+    }
+  ]
+}

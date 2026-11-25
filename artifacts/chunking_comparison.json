@@ -1,0 +1,25 @@
+{
+  "strategies": {
+    "sentence_line_chunks": {
+      "total_chunks": 19,
+      "metrics": {
+        "top3_hit_rate": 1.0,
+        "total_queries": 5,
+        "hits": 5,
+        "partial_hits": 0,
+        "misses": 0
+      }
+    },
+    "fixed_size_120_chars": {
+      "total_chunks": 15,
+      "metrics": {
+        "top3_hit_rate": 1.0,
+        "total_queries": 5,
+        "hits": 5,
+        "partial_hits": 0,
+        "misses": 0
+      }
+    }
+  },
+  "tradeoff_note": "Sentence/line chunking preserves complete policy rules without mid-clause truncation, yielding cleaner term statistics and higher precision than fixed-size character windows that split key facts across boundaries."
+}

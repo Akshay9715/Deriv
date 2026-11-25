@@ -9,7 +9,7 @@ def parse_document(file_path: Path) -> dict[str, str]:
     Parses a KB plain-text file with Title: and Section: headers.
     Preserves the document body text exactly as written after the header block.
     """
-    raw_text = file_path.read_text(encoding="utf-8")
+    raw_text = file_path.read_text(encoding="utf-8-sig")
     lines = raw_text.splitlines(keepends=True)
 
     doc_title = ""

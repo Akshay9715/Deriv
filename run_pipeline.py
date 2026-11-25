@@ -26,7 +26,7 @@ from validate import validate_all
 def load_queries(path: Path) -> list[dict[str, Any]]:
     if not path.exists():
         raise FileNotFoundError(f"Queries file not found: {path}")
-    with path.open("r", encoding="utf-8") as f:
+    with path.open("r", encoding="utf-8-sig") as f:
         data = json.load(f)
     if not isinstance(data, list) or not data:
         raise ValueError("queries.json must be a non-empty list.")

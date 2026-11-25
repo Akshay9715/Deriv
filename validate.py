@@ -23,7 +23,7 @@ def _load_json(path: Path, errors: list[str]) -> Any:
         errors.append(f"Missing required artifact: {path}")
         return None
     try:
-        with path.open("r", encoding="utf-8") as f:
+        with path.open("r", encoding="utf-8-sig") as f:
             return json.load(f)
     except json.JSONDecodeError as exc:
         errors.append(f"Invalid JSON in {path}: {exc}")
